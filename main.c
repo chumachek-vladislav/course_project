@@ -7,13 +7,11 @@
 
 
 double f(double x);
+double calculate_point_value(double x);
+double create_value_table(double a, double b, double step);
+double find_min_max(double a, double b);
+double find_x_for_y(double y, double a, double b);
 double derivative(double x);
-void calculate_point_value();
-void create_value_table();
-void find_min_max();
-void find_x_for_y();
-void calculate_derivative();
-
 
 int main() {
     setlocale(LC_CTYPE, "");
@@ -31,21 +29,62 @@ int main() {
         scanf("%d", &num);
 
         switch (num) {
-        case 1:
-            calculate_point_value();
+        case 1: {
+            double x;
+            printf("Введите x: ");
+            scanf("%lf", &x);
+            double result = calculate_point_value(x);
+            if (result == result) {
+                printf("f(%.3f) = %.6f\n", x, result);
+            }
+        }
             break;
-        case 2:
-            create_value_table();
+        case 2: {
+            double a, b, x;
+            double step;
+            printf("Введите начало: ");
+            scanf("%lf", &a);
+            printf("Введите конец: ");
+            scanf("%lf", &b);
+            printf("Введите шаг: ");
+            scanf("%lf", &step);
+
+            create_value_table(a, b, step);
             break;
-        case 3:
-            find_min_max();
+        }
+        case 3: {
+            double a, b, x, fx;
+            printf("Введите начало отрезка: ");
+            scanf("%lf", &a);
+            printf("Введите конец отрезка: ");
+            scanf("%lf", &b);
+
+            find_min_max(a, b);
             break;
-        case 4:
-            find_x_for_y();
+        }
+        case 4: {
+            double y, a, b;
+            printf("Введите 'Y': ");
+            scanf("%lf", &y);
+            printf("Введите диапазон поиска (a и b): ");
+            scanf("%lf %lf", &a, &b);
+
+            find_x_for_y(y, a, b);
             break;
-        case 5:
-            calculate_derivative();
+        }
+        case 5: {
+            double x;
+            printf("Введите x: ");
+            scanf("%lf", &x);
+            if ((x >= 3 && (2 * x + 3) <= 0) || (x > -2 && x <= 3 && (1 + x * x * x) < 0)) {
+                printf("Функция не определена в точке х = %.3f\n", x);
+            }
+            else {
+                double deriv = derivative(x);
+                printf("f'(%.3f) = %.6f\n", x, deriv);
+            }
             break;
+        }
         case 0:
             printf("Выход из программы.\n");
             break;
@@ -67,32 +106,22 @@ double f(double x) {
         return log(2 * x + 3) * (pow(x, 4) - 2 * pow(x, 2) + x - 1);
 }
 
-void calculate_point_value() {
-    double x;
-    printf("Введите x: ");
-    scanf("%lf", &x);
-
+double calculate_point_value(double x) {
     if (x >= 3 && (2 * x + 3) <= 0) {
         printf("Ошибка: под логарифмом должно быть > 0!\n");
+        return NAN;
     }
     else if (x >= -2 && x < 3 && (1 + x * x * x) < 0) {
         printf("Ошибка: под корнем должно быть >= 0!\n");
+
     }
     else {
-        double fx = f(x);
-        printf("f(%.3f) = %.6f\n", x, fx);
+        return f(x);
     }
 }
 
-void create_value_table() {
-    double a, b, x;
-    double step;
-    printf("Введите начало: ");
-    scanf("%lf", &a);
-    printf("Введите конец: ");
-    scanf("%lf", &b);
-    printf("Введите шаг: ");
-    scanf("%lf", &step);
+double create_value_table(double a, double b, double step) {
+    
     if (step <= 0) {
         printf("Шаг должен быть > 0!\n");
         return;
@@ -106,7 +135,7 @@ void create_value_table() {
     printf("|     x     |      f(x)      |\n");
     printf("------------------------------\n");
 
-    for (x = a; x <= b; x += step) {
+    for (double x = a; x <= b; x += step) {
         if (x > -2 && x <= 3 && (1 + x * x * x) < 0) {
             printf("| %9.3f |     Ошибка    |\n", x);
         }
@@ -120,18 +149,13 @@ void create_value_table() {
     printf("------------------------------\n");
 }
 
-void find_min_max() {
-    double a, b, x, fx;
-    printf("Введите начало отрезка: ");
-    scanf("%lf", &a);
-    printf("Введите конец отрезка: ");
-    scanf("%lf", &b);
-
+double find_min_max(double a, double b) {
+    
     int found = 0;
     double min, max;
 
-    for (x = a; x <= b; x += 0.1) {
-        fx = f(x);
+    for (double x = a; x <= b; x += 0.1) {
+        double fx = f(x);
         if (fx == fx) { //NaN
             if (!found) {
                 min = max = fx;
@@ -153,18 +177,14 @@ void find_min_max() {
     }
 }
 
-void find_x_for_y() {
-    double y, a, b, x;
-    printf("Введите 'Y': ");
-    scanf("%lf", &y);
-    printf("Введите диапазон поиска (a и b): ");
-    scanf("%lf %lf", &a, &b);
+double find_x_for_y(double y, double a, double b) {
+    
     if (a > b) {
         printf("Ошибка! Необходимо a < b!\n");
         return;
     }
     int solution_found = 0;
-    for (x = a; x <= b; x += 0.001) {
+    for (double x = a; x <= b; x += 0.001) {
         if (x >= 3 && (2 * x + 3) <= 0) continue;
         if (x > -2 && x <= 3 && (1+x*x*x) < 0) continue;
         if (fabs(f(x) - y) < 0.001) {
@@ -185,10 +205,4 @@ void find_x_for_y() {
 double derivative(double x) {
     double h = 1e-5;
     return (f(x + h) - f(x - h)) / (2 * h);
-}
-void calculate_derivative() {
-    double x;
-    printf("Введите x: ");
-    scanf("%lf", &x);
-    printf("f'(%.3f) = %.6f\n", x, derivative(x));
 }
