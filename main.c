@@ -1,22 +1,20 @@
 #define ﻿_CRT_SECURE_NO_DEPRECATE
-
 #include <locale.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
-
 double f(double x);
 double calculate_point_value(double x);
 double create_value_table(double a, double b, double step);
-double find_min_max(double a, double b);
-double find_x_for_y(double y, double a, double b);
+double find_min_max(double a, double b, double* min_res, double* max_res);
+double find_x_for_y(double y, double a, double b, double* result_x);
 double derivative(double x);
 
 int main() {
     setlocale(LC_CTYPE, "");
     int num;
-
+    int result;
     do {
         printf("\n===--> МЕНЮ <--===\n");
         printf("1. Значение f(x) в точке\n");
@@ -53,23 +51,46 @@ int main() {
             break;
         }
         case 3: {
-            double a, b, x, fx;
+            double a, b, min, max;
             printf("Введите начало отрезка: ");
             scanf("%lf", &a);
             printf("Введите конец отрезка: ");
             scanf("%lf", &b);
 
-            find_min_max(a, b);
+            result = find_min_max(a, b, &min, &max);
+
+            if (result == -1) {
+                printf("Ошибка! Необходимо a < b!\n");
+            }
+            else if (result == 0) {
+                printf("Функция не определена на этом отрезке\n");
+            }
+            else {
+                printf("\nМинимум (Min) = %.6f\n", min);
+                printf("Максимум (Max) = %.6f\n", max);
+            }
             break;
         }
         case 4: {
-            double y, a, b;
+            double y, a, b, found_x;
+       
             printf("Введите 'Y': ");
             scanf("%lf", &y);
             printf("Введите диапазон поиска (a и b): ");
             scanf("%lf %lf", &a, &b);
 
-            find_x_for_y(y, a, b);
+            result = find_x_for_y(y, a, b, &found_x);
+            
+            if (result == -1) {
+                printf("Ошибка! Необходимо a < b!\n");
+            }
+            else if (result == 0) {
+                printf("Решение не найдено\n");
+            }
+            else {
+                printf("Приблизительно: x = %.3f, f(x) = %.3f\n", found_x, f(found_x));
+                printf("Всего найдено решений: %d\n", result);
+            }
             break;
         }
         case 5: {
@@ -121,7 +142,6 @@ double calculate_point_value(double x) {
 }
 
 double create_value_table(double a, double b, double step) {
-    
     if (step <= 0) {
         printf("Шаг должен быть > 0!\n");
         return;
@@ -149,8 +169,10 @@ double create_value_table(double a, double b, double step) {
     printf("------------------------------\n");
 }
 
-double find_min_max(double a, double b) {
-    
+double find_min_max(double a, double b, double *min_res, double *max_res) {
+    if (a > b) {
+        return -1;
+    }
     int found = 0;
     double min, max;
 
@@ -169,18 +191,14 @@ double find_min_max(double a, double b) {
     }
 
     if (found) {
-        printf("\nМинимум (Min) = %.6f\n", min);
-        printf("Максимум (Max) = %.6f\n", max);
+        *min_res = min;
+        *max_res = max;
     }
-    else {
-        printf("Функция не определена на этом отрезке\n");
-    }
+    return found;
 }
 
-double find_x_for_y(double y, double a, double b) {
-    
+double find_x_for_y(double y, double a, double b, double *result_x) {
     if (a > b) {
-        printf("Ошибка! Необходимо a < b!\n");
         return;
     }
     int solution_found = 0;
@@ -188,18 +206,12 @@ double find_x_for_y(double y, double a, double b) {
         if (x >= 3 && (2 * x + 3) <= 0) continue;
         if (x > -2 && x <= 3 && (1+x*x*x) < 0) continue;
         if (fabs(f(x) - y) < 0.001) {
-            printf("Приблизительно: x = %.3f, f(x) = %.3f\n", x, f(x));
+            *result_x = x;
             solution_found++;
             break;
         }
     }
-
-    if (!solution_found) {
-        printf("Решение не найдено\n");
-    }
-    else {
-        printf("Всего найдено решений: %d\n", solution_found);
-    }
+    return solution_found;
 }
 
 double derivative(double x) {
