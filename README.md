@@ -3,4 +3,4 @@
 
 ![photo](https://github.com/user-attachments/assets/8929aa48-bfaa-4822-8e63-48146c9cc2ca)
 
-<img width="330" height="725" alt="image" src="https://github.com/user-attachments/assets/937f18b3-eb58-4347-aeb9-548e02ebe556" />
+<img width="330" height="725" alt="primer" src="https://github.com/user-attachments/assets/44e8fdfd-bb00-46e2-8196-1ab9021a163d" />
