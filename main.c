@@ -1,5 +1,4 @@
 #define ﻿_CRT_SECURE_NO_DEPRECATE
-
 #include <locale.h>
 #include <stdio.h>
 #include <math.h>
@@ -14,8 +13,7 @@ double derivative(double x);
 
 int main() {
     setlocale(LC_CTYPE, "");
-    int num;
-    int result;
+    int num, result;
     do {
         printf("\n===--> МЕНЮ <--===\n");
         printf("1. Значение f(x) в точке\n");
@@ -195,7 +193,7 @@ double find_min_max(double a, double b, double* min_res, double* max_res) {
 
     for (double x = a; x <= b + 0.005; x += 0.01) {
         double fx = calculate_point_value_silent(x);
-        if (!isnan(fx)) { 
+        if (!isnan(fx)) {
             if (!found) {
                 min = max = fx;
                 found = 1;
@@ -206,7 +204,6 @@ double find_min_max(double a, double b, double* min_res, double* max_res) {
             }
         }
     }
-
     if (found) {
         *min_res = min;
         *max_res = max;
@@ -221,7 +218,7 @@ double find_x_for_y(double y, double a, double b, double* result_x) {
     int solution_found = 0;
     for (double x = a; x <= b + 0.0000005; x += 0.000001) {
         double fx = calculate_point_value_silent(x);
-        if (!isnan(fx) && fabs(fx - y) < 0.001) {
+        if (!isnan(fx) && fabs(fx - y) < 0.000001) {
             *result_x = x;
             solution_found++;
             break;
@@ -231,9 +228,11 @@ double find_x_for_y(double y, double a, double b, double* result_x) {
 }
 double derivative(double x) {
     double h = 1e-5;
-    double fx_plus_h = f(x + h);
-    double fx_minus_h = f(x - h);
-
+    if (isnan(calculate_point_value_silent(x))) {
+        return NAN; //определена ли функция в точке х
+    }
+    double fx_plus_h = calculate_point_value_silent(x + h);
+    double fx_minus_h = calculate_point_value_silent(x - h);
     if (isnan(fx_plus_h) || isnan(fx_minus_h)) {
         return NAN; //проверка, что точки x+-h попадают в область определения 
     }
