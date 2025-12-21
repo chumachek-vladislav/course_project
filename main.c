@@ -14,10 +14,9 @@ double derivative(double x);
 
 int main() {
     setlocale(LC_CTYPE, "RUS");
-    
+    int num;
+    double result;
     do { 
-        int num;
-        double result;
         printf("\n===--> МЕНЮ <--===\n");
         printf("1. Значение f(x) в точке\n");
         printf("2. Таблица значений\n");
