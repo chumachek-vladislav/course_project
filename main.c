@@ -1,4 +1,5 @@
 #define ﻿_CRT_SECURE_NO_DEPRECATE
+
 #include <locale.h>
 #include <stdio.h>
 #include <math.h>
@@ -6,14 +7,15 @@
 
 double f(double x);
 double calculate_point_value(double x);
-double calculate_point_value_silent(double x);
-double find_min_max(double a, double b, double* min_res, double* max_res);
-double find_x_for_y(double y, double a, double b, double* result_x);
+void create_value_table(double a, double b, double step);
+int find_min_max(double a, double b, double* min_res, double* max_res);
+int find_x_for_y(double y, double a, double b, double* result_x);
 double derivative(double x);
 
 int main() {
     setlocale(LC_CTYPE, "");
-    int num, result;
+    int num;
+    double result;
     do {
         printf("\n===--> МЕНЮ <--===\n");
         printf("1. Значение f(x) в точке\n");
@@ -30,9 +32,9 @@ int main() {
             double x;
             printf("Введите x: ");
             scanf("%lf", &x);
-            double result = calculate_point_value(x);
+            result = calculate_point_value(x);
             if (!isnan(result)) {
-                printf("с точностью до 6 знаков\n");
+                printf("\nОтвет с точностью до 6 знаков:\n");
                 printf("f(%.3f) = %.6f\n", x, result);
             }
             else {
@@ -41,7 +43,7 @@ int main() {
             break;
         }
         case 2: {
-            double a, b;
+            double a, b, x;
             double step;
             printf("Введите начало: ");
             scanf("%lf", &a);
@@ -58,21 +60,8 @@ int main() {
                 printf("Ошибка! Необходимо a < b!\n");
                 return;
             }
-            printf("\nТаблица значений:\n");
-            printf("--------------+--------------\n");
-            printf("|     x       |      f(x)   |\n");
-            printf("--------------+--------------\n");
 
-            for (double x = a; x <= b + step / 2; x += step) {
-                double fx = calculate_point_value_silent(x);
-                if (isnan(fx)) {
-                    printf("| %10.3f  | %10s  | \n", x, "не опр.");
-                }
-                else {
-                    printf("| %10.3f  | %10.6f  |\n", x, f(x));
-                }
-            }
-            printf("-----------------------------\n");
+            create_value_table(a, b, step);
             break;
         }
         case 3: {
@@ -82,7 +71,8 @@ int main() {
             printf("Введите конец отрезка: ");
             scanf("%lf", &b);
 
-            int result = find_min_max(a, b, &min, &max);
+            result = find_min_max(a, b, &min, &max);
+
             if (result == -1) {
                 printf("Ошибка! Необходимо a < b!\n");
             }
@@ -97,22 +87,22 @@ int main() {
         }
         case 4: {
             double y, a, b, found_x;
+       
             printf("Введите 'Y': ");
             scanf("%lf", &y);
             printf("Введите диапазон поиска (a и b): ");
             scanf("%lf %lf", &a, &b);
 
             int result = find_x_for_y(y, a, b, &found_x);
-
+            
             if (result == -1) {
-                printf("Ошибка! Необходимо a < b!\n");
+                printf("\nОшибка! Необходимо a < b!\n");
             }
             else if (result == 0) {
-                printf("Решение не найдено на заданном отрезке\n");
+                printf("\nРешений не найдено в данном диапазоне\n");
             }
             else {
-                printf("Приблизительно: x = %.6f, f(x) = %.6f\n", found_x, f(found_x));
-                printf("Всего найдено решений: %d\n", result);
+                printf("\nПриблизительно: x = %.6f, f(x) = %.6f\n", found_x, f(found_x));
             }
             break;
         }
@@ -120,18 +110,16 @@ int main() {
             double x;
             printf("Введите x: ");
             scanf("%lf", &x);
-            double fx = calculate_point_value_silent(x);
-            if (isnan(fx)) {
-                printf("Функция не определена в точке х = %.3f\n", x);
+            
+            double deriv = derivative(x);
+            if (isnan(deriv)) {
+                printf("Производная не существует.\n");
+            }
+            else if (isinf(deriv)) {
+                printf("Производная бесконечна");
             }
             else {
-                double deriv = derivative(x);
-                if (isnan(deriv)) {
-                    printf("Не удалось вычислить производную в точке x = %.3f\n", x);
-                }
-                else {
-                    printf("f'(%.3f) = %.6f\n", x, deriv);
-                }
+                printf("f'(%.3f) = %.6f\n", x, deriv);
             }
             break;
         }
@@ -146,55 +134,76 @@ int main() {
     system("pause");
     return 0;
 };
+
 double f(double x) {
-    if (x < -2) {
-        return (cos(2 * x) - 1) / (x * x);
+    if (x < -2.0) {
+        return (cos(2.0 * x) - 1.0) / (x * x);
     }
-    else if (x >= -2 && x < 3) {
-        if (1 + x * x * x < 0) {
-            return NAN;
-        }
-        return x * exp(-x / 2.0) + pow(1 + x * x * x, 0.25);
+    else if (x >= -2.0 && x < 3.0) {
+        return x * exp(-x / 2.0) + pow(1.0 + x * x * x, 0.25);
     }
-    else if (x >= 3) {
-        if (2 * x + 3 <= 0) {
-            return NAN;
-        }
-        return log(2 * x + 3) * (pow(x, 4) - 2 * pow(x, 2) + x - 1);
+    else { // x >= 3
+        return log(2.0 * x + 3.0) *
+            (pow(x, 4.0) - 2.0 * pow(x, 2.0) + x - 1.0);
     }
-    return NAN;
 }
+
 double calculate_point_value(double x) {
-    if (x >= 3 && (2 * x + 3) <= 0) {
-        printf("Ошибка: аргумент логарифма должен быть > 0!\n");
-        return NAN;
+    // 1. Проверка корня 4-й степени для второго куска
+    if (x >= -2.0 && x < 3.0 && (1.0 + x * x * x) < 0.0) {
+        return NAN;  // Корень из отрицательного числа
     }
-    if (x >= -2 && x < 3 && (1 + x * x * x) < 0) {
-        printf("Ошибка: под корнем 4-ой степени должно быть >= 0!\n");
-        return NAN;
+
+    // 2. Проверка деления на 0 в первом куске
+    if (x < -2.0 && fabs(x) < 1e-10) {
+        return NAN;  // Деление на 0 
     }
-    return f(x);
+
+    return f(x);  // Вычисляем значение
 }
-double calculate_point_value_silent(double x) {
-    if (x >= 3 && (2 * x + 3) <= 0) {
-        return NAN;
+
+void create_value_table(double a, double b, double step) {
+    printf("\nТаблица значений:\n");
+    printf("------------------------------\n");
+    printf("|     x     |      f(x)      |\n");
+    printf("------------------------------\n");
+
+    for (double x = a; x <= b + step / 2.0; x += step) {
+        // Проверка области определения
+        if (x >= -2.0 && x < 3.0) {
+            if ((1.0 + x * x * x) < 0.0) {
+                printf("|%11.3f | НЕ ОПРЕДЕЛЕНО |\n", x);
+                continue;
+            }
+        }
+    double result = calculate_point_value(x);
+        if (isnan(result)) {
+            printf("|%11.3f | НЕ ОПРЕДЕЛЕНО |\n", x);
+        }
+        else if (isinf(result)) {
+            printf("|%11.3f | БЕСКОНЕЧНО    |\n", x);
+        }
+        else {
+            printf("|%11.3f |%14.6f |\n", x, result);
+        }
     }
-    if (x >= -2 && x < 3 && (1 + x * x * x) < 0) {
-        return NAN;
-    }
-    return f(x);
+    printf("------------------------------\n");
 }
-double find_min_max(double a, double b, double* min_res, double* max_res) {
+
+int find_min_max(double a, double b, double *min_res, double *max_res) {
     if (a > b) {
         return -1;
     }
     int found = 0;
     double min, max;
+    double step = 0.001;
+    for (double x = a; x <= b + step/2.0; x += step) {
+        double fx = calculate_point_value(x);
 
-    for (double x = a; x <= b + 0.005; x += 0.01) {
-        double fx = calculate_point_value_silent(x);
-        if (!isnan(fx)) {
+        // Проверяем, что значение определено и конечно
+        if (!isnan(fx) && !isinf(fx)) {
             if (!found) {
+                // Первое найденное значение
                 min = max = fx;
                 found = 1;
             }
@@ -211,30 +220,36 @@ double find_min_max(double a, double b, double* min_res, double* max_res) {
     }
     return 0;
 }
-double find_x_for_y(double y, double a, double b, double* result_x) {
+
+int find_x_for_y(double y, double a, double b, double* result_x) {
     if (a > b) {
         return -1;
     }
-    int solution_found = 0;
-    for (double x = a; x <= b + 0.0000005; x += 0.000001) {
-        double fx = calculate_point_value_silent(x);
-        if (!isnan(fx) && fabs(fx - y) < 0.000001) {
+    double step = 0.000001;
+    for (double x = a; x <= b + step / 2.0; x += step) {
+        if (x >= -2.0 && x < 3.0 && (1.0 + x * x * x) < 0.0) {
+            continue;
+        }
+
+        double fx = f(x);
+        if (isnan(fx) || isinf(fx)) {
+            continue;
+        }
+        if (fabs(fx - y) < step) {
             *result_x = x;
-            solution_found++;
-            break;
+            return 1;
         }
     }
-    return solution_found;
+    return 0;
 }
+
 double derivative(double x) {
     double h = 1e-5;
-    if (isnan(calculate_point_value_silent(x))) {
-        return NAN; //определена ли функция в точке х
+
+    double fx_plus = calculate_point_value(x + h);
+    double fx_minus = calculate_point_value(x - h);
+    if (isnan(fx_plus) || isnan(fx_minus) || isinf(fx_plus) || isinf(fx_minus)) {
+        return NAN;
     }
-    double fx_plus_h = calculate_point_value_silent(x + h);
-    double fx_minus_h = calculate_point_value_silent(x - h);
-    if (isnan(fx_plus_h) || isnan(fx_minus_h)) {
-        return NAN; //проверка, что точки x+-h попадают в область определения 
-    }
-    return (fx_plus_h - fx_minus_h) / (2 * h);
+    return (fx_plus - fx_minus) / (2 * h);
 }
