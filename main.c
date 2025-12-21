@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+
 double f(double x);
 double calculate_point_value(double x);
 void create_value_table(double a, double b, double step);
@@ -14,14 +15,15 @@ double derivative(double x);
 
 int main() {
     setlocale(LC_CTYPE, "RUS");
+    printf("Программа для работы с функцией f(x)\nВыполнил: Чумачек Владислав бИЦ-252\n");
     int num;
     double result;
-    do { 
+    do {
         printf("\n===--> МЕНЮ <--===\n");
         printf("1. Значение f(x) в точке\n");
         printf("2. Таблица значений\n");
         printf("3. Минимум и максимум на отрезке\n");
-        printf("4. Найти x, если f(x) = Y\n");
+        printf("4. Найти x по значению Y\n");
         printf("5. Производная f'(x)\n");
         printf("0. Выход\n");
         printf("Выберите пункт: ");
@@ -102,7 +104,7 @@ int main() {
                 printf("\nРешений не найдено в данном диапазоне\n");
             }
             else {
-                printf("\nПриблизительно: x = %.6f, f(x) = %.6f\n", found_x, f(found_x));
+                printf("\nПриблизительно: x = %.6f\n", found_x);
             }
             break;
         }
@@ -172,21 +174,22 @@ void create_value_table(double a, double b, double step) {
         // Проверка области определения
         if (x >= -2.0 && x < 3.0) {
             if ((1.0 + x * x * x) < 0.0) {
-                printf("|%11.3f | НЕ ОПРЕДЕЛЕНО |\n", x);
+                printf("|%11.3f|  НЕ ОПРЕДЕЛЕНО |\n", x);
                 continue;
             }
         }
     double result = calculate_point_value(x);
         if (isnan(result)) {
-            printf("|%11.3f | НЕ ОПРЕДЕЛЕНО |\n", x);
+            printf("|%11.3f|  НЕ ОПРЕДЕЛЕНО |\n", x);
         }
         else if (isinf(result)) {
-            printf("|%11.3f | БЕСКОНЕЧНО    |\n", x);
+            printf("|%11.3f|  БЕСКОНЕЧНО    |\n", x);
         }
         else {
-            printf("|%11.3f |%14.6f |\n", x, result);
+            printf("|%11.3f| %14.6f |\n", x, result);
         }
     }
+
     printf("------------------------------\n");
 }
 
@@ -213,6 +216,7 @@ int find_min_max(double a, double b, double *min_res, double *max_res) {
             }
         }
     }
+
     if (found) {
         *min_res = min;
         *max_res = max;
@@ -232,6 +236,7 @@ int find_x_for_y(double y, double a, double b, double* result_x) {
         }
 
         double fx = f(x);
+
         if (isnan(fx) || isinf(fx)) {
             continue;
         }
