@@ -13,7 +13,7 @@ int find_x_for_y(double y, double a, double b, double* result_x);
 double derivative(double x);
 
 int main() {
-    setlocale(LC_CTYPE, "");
+    setlocale(LC_CTYPE, "RUS");
     int num;
     double result;
     do {
