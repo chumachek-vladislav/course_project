@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_DEPRECATE
+п»ї#define _CRT_SECURE_NO_DEPRECATE
 
 #include <stdio.h>
 #include <locale.h>
@@ -15,47 +15,47 @@ double derivative(double x, double h);
 
 int main() {
     setlocale(LC_CTYPE, "RUS");
-    printf("Программа для работы с функцией f(x)\nВыполнил: Чумачек Владислав, бИЦ-252\n");
+    printf("РџСЂРѕРіСЂР°РјРјР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С„СѓРЅРєС†РёРµР№ f(x)\nР’С‹РїРѕР»РЅРёР»: Р§СѓРјР°С‡РµРє Р’Р»Р°РґРёСЃР»Р°РІ, Р±РР¦-252\n");
     int num;
     double result;
 
     do {
-        printf("\n*<<<===<( МЕНЮ )>===>>>*\n");
-        printf("1. Значение f(x) в точке\n");
-        printf("2. Таблица значений\n");
-        printf("3. Сохранить таблицу в файл\n");
-        printf("4. Найти x по значению Y\n");
-        printf("5. Проверка на возрастание\n");
-        printf("6. Производная f'(x)\n");
-        printf("0. Выход\n");
-        num = (int)input_scanf("Выберите пункт: ");
+        printf("\n*<<<===<( РњР•РќР® )>===>>>*\n");
+        printf("1. Р—РЅР°С‡РµРЅРёРµ f(x) РІ С‚РѕС‡РєРµ\n");
+        printf("2. РўР°Р±Р»РёС†Р° Р·РЅР°С‡РµРЅРёР№\n");
+        printf("3. РЎРѕС…СЂР°РЅРёС‚СЊ С‚Р°Р±Р»РёС†Сѓ РІ С„Р°Р№Р»\n");
+        printf("4. РќР°Р№С‚Рё x РїРѕ Р·РЅР°С‡РµРЅРёСЋ Y\n");
+        printf("5. РџСЂРѕРІРµСЂРєР° РЅР° РІРѕР·СЂР°СЃС‚Р°РЅРёРµ\n");
+        printf("6. РџСЂРѕРёР·РІРѕРґРЅР°СЏ f'(x)\n");
+        printf("0. Р’С‹С…РѕРґ\n");
+        num = (int)input_scanf("Р’С‹Р±РµСЂРёС‚Рµ РїСѓРЅРєС‚: ");
 
         switch (num) {
         case 1: {
-            double x = input_scanf("\nВведите x: ");
-            int count = (int)input_scanf("Введите точность ответа: ");
+            double x = input_scanf("\nР’РІРµРґРёС‚Рµ x: ");
+            int count = (int)input_scanf("Р’РІРµРґРёС‚Рµ С‚РѕС‡РЅРѕСЃС‚СЊ РѕС‚РІРµС‚Р°: ");
             if (count < 0) count = 0;
 
             result = f(x);
             if (!isnan(result)) {
-                printf("\nОтвет: f(%.15g) = %.*f\n", x, count, result);
+                printf("\nРћС‚РІРµС‚: f(%.15g) = %.*f\n", x, count, result);
             }
             else {
-                printf("Функция не определена в точке x = %.15g\n", x);
+                printf("Р¤СѓРЅРєС†РёСЏ РЅРµ РѕРїСЂРµРґРµР»РµРЅР° РІ С‚РѕС‡РєРµ x = %.15g\n", x);
             }
             break;
         }
         case 2: {
-            double a = input_scanf("\nВведите начало (a): ");
-            double b = input_scanf("Введите конец (b): ");
-            double step = input_scanf("Введите шаг: ");
+            double a = input_scanf("\nР’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»Рѕ (a): ");
+            double b = input_scanf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС† (b): ");
+            double step = input_scanf("Р’РІРµРґРёС‚Рµ С€Р°Рі: ");
 
             if (step <= 0) {
-                printf("Шаг должен быть > 0!\n");
+                printf("РЁР°Рі РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ > 0!\n");
                 break;
             }
             if (a > b) {
-                printf("Ошибка! Необходимо a < b!\n");
+                printf("РћС€РёР±РєР°! РќРµРѕР±С…РѕРґРёРјРѕ a < b!\n");
                 break;
             }
 
@@ -64,110 +64,110 @@ int main() {
         }
         case 3: {
             char filename[100];
-            printf("\nВведите имя файла (например, table.txt): ");
+            printf("\nР’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° (РЅР°РїСЂРёРјРµСЂ, table.txt): ");
             scanf("%s", filename);
-            double a = input_scanf("Введите начало (a): ");
-            double b = input_scanf("Введите конец (b): ");
-            double step = input_scanf("Введите шаг: ");
+            double a = input_scanf("Р’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»Рѕ (a): ");
+            double b = input_scanf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС† (b): ");
+            double step = input_scanf("Р’РІРµРґРёС‚Рµ С€Р°Рі: ");
 
             if (step <= 0) {
-                printf("Ошибка: Шаг должен быть > 0!\n");
+                printf("РћС€РёР±РєР°: РЁР°Рі РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ > 0!\n");
                 break;
             }
             if (a > b) {
-                printf("Ошибка: Необходимо a < b!\n");
+                printf("РћС€РёР±РєР°: РќРµРѕР±С…РѕРґРёРјРѕ a < b!\n");
                 break;
             }
 
             int status = save_table_to_file(a, b, step, filename);
             if (status == 1) {
-                printf("Успешно! Таблица сохранена в файл '%s'\n", filename);
+                printf("РЈСЃРїРµС€РЅРѕ! РўР°Р±Р»РёС†Р° СЃРѕС…СЂР°РЅРµРЅР° РІ С„Р°Р№Р» '%s'\n", filename);
             }
             else {
-                printf("Ошибка при создании или записи файла '%s'\n", filename);
+                printf("РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РёР»Рё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° '%s'\n", filename);
             }
             break;
         }
         case 4: {
-            double y = input_scanf("\nВведите 'Y': ");
-            double a = input_scanf("Введите начало диапазона (a): ");
-            double b = input_scanf("Введите конец диапазона (b): ");
-            double eps = input_scanf("Введите точность поиска (например, 0.001): ");
-            int count = (int)input_scanf("Введите точность ответа: ");
+            double y = input_scanf("\nР’РІРµРґРёС‚Рµ 'Y': ");
+            double a = input_scanf("Р’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»Рѕ РґРёР°РїР°Р·РѕРЅР° (a): ");
+            double b = input_scanf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС† РґРёР°РїР°Р·РѕРЅР° (b): ");
+            double eps = input_scanf("Р’РІРµРґРёС‚Рµ С‚РѕС‡РЅРѕСЃС‚СЊ РїРѕРёСЃРєР° (РЅР°РїСЂРёРјРµСЂ, 0.001): ");
+            int count = (int)input_scanf("Р’РІРµРґРёС‚Рµ С‚РѕС‡РЅРѕСЃС‚СЊ РѕС‚РІРµС‚Р°: ");
             if (count < 0) count = 0;
 
             if (eps <= 0) {
-                printf("Ошибка! Точность должна быть > 0\n");
+                printf("РћС€РёР±РєР°! РўРѕС‡РЅРѕСЃС‚СЊ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ > 0\n");
                 break;
             }
 
             double found_x;
             int res = find_x_for_y(y, a, b, eps, &found_x);
             if (res == -1) {
-                printf("\nОшибка! Необходимо a < b!\n");
+                printf("\nРћС€РёР±РєР°! РќРµРѕР±С…РѕРґРёРјРѕ a < b!\n");
             }
             else if (res == 0) {
-                printf("\nРешений не найдено в данном диапазоне (с заданной точностью)\n");
+                printf("\nР РµС€РµРЅРёР№ РЅРµ РЅР°Р№РґРµРЅРѕ РІ РґР°РЅРЅРѕРј РґРёР°РїР°Р·РѕРЅРµ (СЃ Р·Р°РґР°РЅРЅРѕР№ С‚РѕС‡РЅРѕСЃС‚СЊСЋ)\n");
             }
             else {
-                printf("\nПриблизительно: x = %.*f (при точности поиска = %.15g)\n", count, found_x, eps);
+                printf("\nРџСЂРёР±Р»РёР·РёС‚РµР»СЊРЅРѕ: x = %.*f (РїСЂРё С‚РѕС‡РЅРѕСЃС‚Рё РїРѕРёСЃРєР° = %.15g)\n", count, found_x, eps);
             }
             break;
         }
         case 5: {
-            double a = input_scanf("\nВведите начало отрезка (a): ");
-            double b = input_scanf("Введите конец отрезка (b): ");
-            double step = input_scanf("Введите шаг проверки: ");
+            double a = input_scanf("\nР’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»Рѕ РѕС‚СЂРµР·РєР° (a): ");
+            double b = input_scanf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС† РѕС‚СЂРµР·РєР° (b): ");
+            double step = input_scanf("Р’РІРµРґРёС‚Рµ С€Р°Рі РїСЂРѕРІРµСЂРєРё: ");
 
             if (step <= 0) {
-                printf("Шаг должен быть > 0!\n");
+                printf("РЁР°Рі РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ > 0!\n");
                 break;
             }
             if (a > b) {
-                printf("Ошибка! Необходимо a < b!\n");
+                printf("РћС€РёР±РєР°! РќРµРѕР±С…РѕРґРёРјРѕ a < b!\n");
                 break;
             }
 
             int res = check_increasing(a, b, step);
             if (res == 1) {
-                printf("\nОтвет: Функция МОНОТОННО ВОЗРАСТАЕТ на отрезке [%.15g; %.15g]\n", a, b);
+                printf("\nРћС‚РІРµС‚: Р¤СѓРЅРєС†РёСЏ РњРћРќРћРўРћРќРќРћ Р’РћР—Р РђРЎРўРђР•Рў РЅР° РѕС‚СЂРµР·РєРµ [%.15g; %.15g]\n", a, b);
             }
             else if (res == 0) {
-                printf("\nОтвет: Функция НЕ ЯВЛЯЕТСЯ монотонно возрастающей на отрезке [%.15g; %.15g]\n", a, b);
+                printf("\nРћС‚РІРµС‚: Р¤СѓРЅРєС†РёСЏ РќР• РЇР’Р›РЇР•РўРЎРЇ РјРѕРЅРѕС‚РѕРЅРЅРѕ РІРѕР·СЂР°СЃС‚Р°СЋС‰РµР№ РЅР° РѕС‚СЂРµР·РєРµ [%.15g; %.15g]\n", a, b);
             }
             else if (res == -1) {
-                printf("\nОшибка: на отрезке [%.15g; %.15g] есть точки разрыва или неопределенности\n", a, b);
+                printf("\nРћС€РёР±РєР°: РЅР° РѕС‚СЂРµР·РєРµ [%.15g; %.15g] РµСЃС‚СЊ С‚РѕС‡РєРё СЂР°Р·СЂС‹РІР° РёР»Рё РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё\n", a, b);
             }
             break;
         }
         case 6: {
-            double x = input_scanf("\nВведите x: ");
-            double h = input_scanf("Введите шаг приращения dx (например, 0.00001): ");
-            int count = (int)input_scanf("Введите точность ответа: ");
+            double x = input_scanf("\nР’РІРµРґРёС‚Рµ x: ");
+            double h = input_scanf("Р’РІРµРґРёС‚Рµ С€Р°Рі РїСЂРёСЂР°С‰РµРЅРёСЏ dx (РЅР°РїСЂРёРјРµСЂ, 0.00001): ");
+            int count = (int)input_scanf("Р’РІРµРґРёС‚Рµ С‚РѕС‡РЅРѕСЃС‚СЊ РѕС‚РІРµС‚Р°: ");
             if (count < 0) count = 0;
 
             if (h <= 0) {
-                printf("\nОшибка! Шаг dx должен быть > 0\n");
+                printf("\nРћС€РёР±РєР°! РЁР°Рі dx РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ > 0\n");
                 break;
             }
 
             double deriv = derivative(x, h);
             if (isnan(deriv)) {
-                printf("\nОтвет: Производная не существует (область неопределенности)\n");
+                printf("\nРћС‚РІРµС‚: РџСЂРѕРёР·РІРѕРґРЅР°СЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ (РѕР±Р»Р°СЃС‚СЊ РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕСЃС‚Рё)\n");
             }
             else if (isinf(deriv)) {
-                printf("\nОтвет: Производная бесконечна\n");
+                printf("\nРћС‚РІРµС‚: РџСЂРѕРёР·РІРѕРґРЅР°СЏ Р±РµСЃРєРѕРЅРµС‡РЅР°\n");
             }
             else {
-                printf("\nОтвет: f'(%.15g) = %.*f (при dx=%.15g)\n", x, count, deriv, h);
+                printf("\nРћС‚РІРµС‚: f'(%.15g) = %.*f (РїСЂРё dx=%.15g)\n", x, count, deriv, h);
             }
             break;
         }
         case 0:
-            printf("Выход из программы.\n");
+            printf("Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹.\n");
             break;
         default:
-            printf("Неверный пункт меню.\n");
+            printf("РќРµРІРµСЂРЅС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ.\n");
         }
     } while (num != 0);
 
@@ -178,7 +178,7 @@ double input_scanf(const char* message) {
     double value;
     printf("%s", message);
     while (scanf("%lf", &value) != 1) {
-        printf("\nОшибка! Введите число!\nПопробуйте снова:");
+        printf("\nРћС€РёР±РєР°! Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ!\nРџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°:");
         while (getchar() != '\n');
     }
     return value;
@@ -191,7 +191,7 @@ double f(double x) {
     else if (x >= -2.0 && x < 3.0) {
 
         if ((1.0 + x * x * x) < 0.0) {
-            return NAN; // Проверка: под корнем 4-й степени не должно быть отрицательного числа
+            return NAN; // РџСЂРѕРІРµСЂРєР°: РїРѕРґ РєРѕСЂРЅРµРј 4-Р№ СЃС‚РµРїРµРЅРё РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРіРѕ С‡РёСЃР»Р°
         }
         return x * exp(-x / 2.0) + pow(1.0 + x * x * x, 0.25);
     }
@@ -202,7 +202,7 @@ double f(double x) {
 }
 
 void create_value_table(double a, double b, double step) {
-    printf("\nТаблица значений:\n");
+    printf("\nРўР°Р±Р»РёС†Р° Р·РЅР°С‡РµРЅРёР№:\n");
     printf("------------------------------\n");
     printf("|     x     |      f(x)      |\n");
     printf("------------------------------\n");
@@ -211,10 +211,10 @@ void create_value_table(double a, double b, double step) {
         double result = f(x);
 
         if (isnan(result)) {
-            printf("|%11.3f|  НЕ ОПРЕДЕЛЕНО |\n", x);
+            printf("|%11.3f|  РќР• РћРџР Р•Р”Р•Р›Р•РќРћ |\n", x);
         }
         else if (isinf(result)) {
-            printf("|%11.3f|  БЕСКОНЕЧНО    |\n", x);
+            printf("|%11.3f|  Р‘Р•РЎРљРћРќР•Р§РќРћ    |\n", x);
         }
         else {
             printf("|%11.3f| %14.6f |\n", x, result);
@@ -230,7 +230,7 @@ int save_table_to_file(double a, double b, double step, const char* filename) {
         return 0;
     }
 
-    fprintf(fp, "Таблица значений:\n");
+    fprintf(fp, "РўР°Р±Р»РёС†Р° Р·РЅР°С‡РµРЅРёР№:\n");
     fprintf(fp, "------------------------------\n");
     fprintf(fp, "|     x     |      f(x)      |\n");
     fprintf(fp, "------------------------------\n");
@@ -239,10 +239,10 @@ int save_table_to_file(double a, double b, double step, const char* filename) {
         double result = f(x);
 
         if (isnan(result)) {
-            fprintf(fp, "|%11.3f|  НЕ ОПРЕДЕЛЕНО |\n", x);
+            fprintf(fp, "|%11.3f|  РќР• РћРџР Р•Р”Р•Р›Р•РќРћ |\n", x);
         }
         else if (isinf(result)) {
-            fprintf(fp, "|%11.3f|  БЕСКОНЕЧНО    |\n", x);
+            fprintf(fp, "|%11.3f|  Р‘Р•РЎРљРћРќР•Р§РќРћ    |\n", x);
         }
         else {
             fprintf(fp, "|%11.3f| %14.6f |\n", x, result);
