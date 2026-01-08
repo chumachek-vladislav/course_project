@@ -10,7 +10,9 @@
 
 ## Графики функции на интервалах
 | **x < -2** | <img width="400" alt="x < -2" src="https://github.com/user-attachments/assets/bbd03f29-2c74-49a4-b497-edacac89153a" /> |
+
 | **-2 <= x < 3** | <img width="400" alt="-2 <= x < 3" src="https://github.com/user-attachments/assets/a2add749-45d2-4a90-945e-256e6c01200f" /> |
+
 | **x >= 3** | <img width="400" alt="x >= 3" src="https://github.com/user-attachments/assets/c8af2942-c177-4561-8e77-43194e1ccff3" /> |
 
 ## Функциональные требования
