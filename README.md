@@ -33,15 +33,15 @@
 
 ## 📂2. Структура проекта
 
-```text
+```
 Course_Project/
-├── .gitattributes
-├── .gitignore
-├── Course_Project.sln
-├── Course_Project.vcxproj
-├── Course_Project.vcxproj.filters 
-├── README.md         
-└── main.c         
+├── .gitattributes                # Настройки атрибутов Git
+├── .gitignore                    # Файлы, исключенные из отслеживания Git
+├── Course_Project.sln            # Файл решения Visual Studio (Solution)
+├── Course_Project.vcxproj        # Файл проекта Visual Studio (настройки сборки)
+├── Course_Project.vcxproj.filters # Фильтры для отображения файлов в обозревателе решений
+├── README.md                     # Описание проекта
+└── main.c                        # Основной файл с исходным кодом программы      
 ```
 
 ## ⚙️3. Описание функций
