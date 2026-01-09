@@ -8,17 +8,17 @@
 
 <img width="460" height="137" alt="Формула функции" src="https://github.com/user-attachments/assets/ed1e5dc2-c672-49da-b27c-ac5a81772928" />
 
-## Графики функции на интервалах:
+# Графики функции на интервалах:
 
-## График функции f(x) при x < -2
+## **График функции f(x) при x < -2**
 
 <img width="814" height="476" alt="image" src="https://github.com/user-attachments/assets/bbd03f29-2c74-49a4-b497-edacac89153a" />
 
-## График функции f(x) при -2 <= x < 3
+## **График функции f(x) при -2 <= x < 3**
 
 <img width="442" height="396" alt="image" src="https://github.com/user-attachments/assets/a2add749-45d2-4a90-945e-256e6c01200f" />
 
-## График функции f(x) при x >= 3
+## **График функции f(x) при x >= 3**
 
 <img width="633" height="636" alt="image" src="https://github.com/user-attachments/assets/c8af2942-c177-4561-8e77-43194e1ccff3" />
 
