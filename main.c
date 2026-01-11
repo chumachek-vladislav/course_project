@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE
 
 #include <stdio.h>
 #include <locale.h>
@@ -100,17 +100,19 @@ int main() {
                 printf("Ошибка! Точность должна быть > 0\n");
                 break;
             }
+            if (a > b) {
+                printf("Ошибка! Необходимо a < b!\n");
+                break;
+            }
 
             double found_x;
             int res = find_x_for_y(y, a, b, eps, &found_x);
-            if (res == -1) {
-                printf("\nОшибка! Необходимо a < b!\n");
-            }
-            else if (res == 0) {
-                printf("\nРешений не найдено в данном диапазоне (с заданной точностью)\n");
+
+            if (res == 1) {
+                printf("\nПриблизительно: x = %.*f (при точности поиска = %.15g)\n", count, found_x, eps);
             }
             else {
-                printf("\nПриблизительно: x = %.*f (при точности поиска = %.15g)\n", count, found_x, eps);
+                printf("\nРешений не найдено в данном диапазоне (с заданной точностью)\n");
             }
             break;
         }
@@ -196,8 +198,7 @@ double f(double x) {
         return x * exp(-x / 2.0) + pow(1.0 + x * x * x, 0.25);
     }
     else {
-        return log(2.0 * x + 3.0) *
-            (pow(x, 4.0) - 2.0 * pow(x, 2.0) + x - 1.0);
+        return log(2.0 * x + 3.0) * (pow(x, 4.0) - 2.0 * pow(x, 2.0) + x - 1.0);
     }
 }
 
@@ -254,9 +255,6 @@ int save_table_to_file(double a, double b, double step, const char* filename) {
 }
 
 int find_x_for_y(double y, double a, double b, double eps, double* result_x) {
-    if (a > b) {
-        return -1;
-    }
     for (double x = a; x <= b + eps / 2.0; x += eps) {
         double fx = f(x);
 
