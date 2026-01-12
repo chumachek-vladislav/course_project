@@ -109,7 +109,7 @@ int main() {
             int res = find_x_for_y(y, a, b, eps, &found_x);
 
             if (res == 1) {
-                printf("\nПриблизительно: x = %.*f (при точности поиска = %.15g)\n", count, found_x, eps);
+                printf("\nОтвет: \nПриблизительно: x = %.*f (при точности поиска = %.15g)\n", count, found_x, eps);
             }
             else {
                 printf("\nРешений не найдено в данном диапазоне (с заданной точностью)\n");
@@ -300,3 +300,4 @@ double derivative(double x, double h) {
     }
     return (fx_plus - fx_minus) / (2 * h);
 }
+
